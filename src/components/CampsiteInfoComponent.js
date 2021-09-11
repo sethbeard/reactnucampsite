@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   Card,
   CardImg,
@@ -9,6 +10,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import CommentForm from "./CommentForm";
 
 class CampsiteInfo extends Component {
  
@@ -32,17 +34,28 @@ class CampsiteInfo extends Component {
 
   renderComments(comments){
       if(comments){
-          return(
-
-              <div className="col-md-5 m-1">
-                  <h4>Comments</h4>
-                  {comments.map((comment)=>{return(
-                      <div key={comment.id}>
-                      <p>{comment.text}<br/>--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </p>
-                      </div>
-                  )})}
-              </div>
-          )
+          return (
+            <div className="col-md-5 m-1">
+              <h4>Comments</h4>
+              {comments.map((comment) => {
+                return (
+                  <div key={comment.id}>
+                    <p>
+                      {comment.text}
+                      <br />
+                      --{comment.author},{" "}
+                      {new Intl.DateTimeFormat("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                      }).format(new Date(Date.parse(comment.date)))}{" "}
+                    </p>
+                  </div>
+                );
+              })}
+              <CommentForm />
+            </div>
+          );
       }
       return(
           <div></div>
@@ -68,6 +81,7 @@ class CampsiteInfo extends Component {
             <div className="row">
               {this.renderCampsite(this.props.campsite)}
               {this.renderComments(this.props.comments)}
+             
             </div>
           </div>
         );
